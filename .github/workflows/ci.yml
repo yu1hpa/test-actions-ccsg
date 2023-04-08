@@ -8,16 +8,18 @@ jobs:
     name: generate README
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
       - name: Download ctf-chall-status-generator
         run: cargo install --git https://github.com/yu1hpa/ctf-chall-status-generator.git
-      - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
-      - run: ctf-chall-status-generator --dir-path $WORKDIR
+      - name: Generate README
+        run: ctf-chall-status-generator --dir-path $WORKDIR
       - name: Commit changes
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git checkout -b actions/update-readme
           git add "$WORKDIR/README.md"
           git commit -m "chore(auto-commit): Update README.md"
       - name: Push changes
