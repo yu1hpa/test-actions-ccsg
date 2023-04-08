@@ -14,14 +14,14 @@ jobs:
           ref: ${{ github.head_ref }}
       - name: Download ctf-chall-status-generator
         run: cargo install --git https://github.com/yu1hpa/ctf-chall-status-generator.git
-      - name: Generate README
+      - name: Generate TESTED.md
         run: ctf-chall-status-generator --dir-path $WORKDIR
       - name: Commit changes
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-          git add "$WORKDIR/README.md"
-          git commit -m "chore(auto-commit): Update README.md"
+          git add "$WORKDIR/TESTED.md"
+          git commit -m "chore(auto-commit): Update TESTED.md"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

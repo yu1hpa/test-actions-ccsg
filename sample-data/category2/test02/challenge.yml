@@ -1,0 +1,27 @@
+# Required sections
+name: "test02"
+author: "shiba28"
+category: category2
+description: This is a description
+value: 100
+type: dynamic
+
+extra:
+  initial: 500
+  decay: 100
+  minimum: 100
+
+# Optional settings
+connection_info: nc {{ hostname }} 9001
+
+flags:
+  - FLAG{Thi5_is_a_flag}
+
+tags:
+  - easy
+  - tag00
+
+files:
+  - ./distfiles/dist.txt
+
+version: "0.1"
