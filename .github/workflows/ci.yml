@@ -11,3 +11,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
       - run: ctf-chall-status-generator --dir-path ./sample-data
+  commit:
+    - name: Commit changes
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git add README.md
+        git commit -m "Update README.md"
+    - name: Push changes
+      uses: actions/push@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
