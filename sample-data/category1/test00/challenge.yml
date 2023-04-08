@@ -1,0 +1,26 @@
+# Required sections
+name: "test00"
+author: "yu1hpa"
+category: category1
+description: This is a description
+value: 100
+type: dynamic
+
+extra:
+  initial: 500
+  decay: 100
+  minimum: 100
+
+# Optional settings
+connection_info: nc {{ hostname }} 9001
+
+flags:
+  - FLAG{Thi5_is_a_flag}
+
+tags:
+  - easy
+
+files:
+  - ./distfiles/dist.txt
+
+version: "0.1"

@@ -1,0 +1,14 @@
+name: actions-ctf-chall-status-generator
+on: [push, pull_request]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download ctf-chall-status-generator
+        run: git clone https://github.com/yu1hpa/ctf-chall-status-generator.git
+      - name: Checkout Crate
+        uses: actions/checkout@v3
+      - name: Generate README
+        uses: dtolnay/rust-toolchain@stable
+        run: cargo run -- --dir-path ./sample-data
