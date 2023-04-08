@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download ctf-chall-status-generator
-        run: git clone https://github.com/yu1hpa/ctf-chall-status-generator.git
+        run: git clone https://github.com/yu1hpa/ctf-chall-status-generator.git && cd ctf-chall-status-generator
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo run -- --dir-path ./sample-data
+      - run: cargo run -- --dir-path ../sample-data
