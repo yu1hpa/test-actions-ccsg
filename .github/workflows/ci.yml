@@ -1,5 +1,5 @@
 name: actions-ctf-chall-status-generator
-on: [push, pull_request]
+on: [pull_request]
 env:
   WORKDIR: ./sample-data
 
@@ -17,9 +17,11 @@ jobs:
         run: |
           git config --global user.name "${{ github.actor }}"
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout -b actions/update-readme
           git add "$WORKDIR/README.md"
-          git commit -m "Update README.md"
+          git commit -m "chore(auto-commit): Update README.md"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
