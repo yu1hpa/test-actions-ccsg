@@ -3,6 +3,7 @@ on: [push, pull_request]
 
 jobs:
   generate:
+    name: generate README
     runs-on: ubuntu-latest
     steps:
       - name: Download ctf-chall-status-generator
