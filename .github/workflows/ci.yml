@@ -1,14 +1,29 @@
 name: actions-ctf-chall-status-generator
-on: [push, pull_request]
+on: [pull_request]
+env:
+  WORKDIR: ./sample-data
 
 jobs:
   generate:
+    name: generate README
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
       - name: Download ctf-chall-status-generator
-        run: git clone https://github.com/yu1hpa/ctf-chall-status-generator.git
-      - name: Checkout Crate
-        uses: actions/checkout@v3
+        run: cargo install --git https://github.com/yu1hpa/ctf-chall-status-generator.git
       - name: Generate README
-        uses: dtolnay/rust-toolchain@stable
-        run: cargo run -- --dir-path ./sample-data
+        run: ctf-chall-status-generator --dir-path $WORKDIR
+      - name: Commit changes
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git add "$WORKDIR/README.md"
+          git commit -m "chore(auto-commit): Update README.md"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          branch: ${{ github.head_ref }}
